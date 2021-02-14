@@ -1,0 +1,11 @@
+Hi. I'm Atlae, aka S1 TEP Collector or S2 TEP Collector or S3 TEP Collector if it ever comes out.
+
+This tepscript repository is copied in part from 9003's gotIssues repository and Svenskskit's concepts.
+
+To run, download and run query.py to overwrite query_links.txt. Use test.sh to remove the first two extraneous lines which would otherwise cause trouble.
+
+Then, run list_maker.py to generate a list in tep.html. Then you should be able to go through that by clicking enter and such.
+
+If you too want to do this but not with TEP (idk why) you would change the query URL ini query.py to fit whatever cards you want to see.
+
+I'll add in a license later. Maybe.
