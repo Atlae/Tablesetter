@@ -6,7 +6,8 @@ import subprocess
 from bs4 import BeautifulSoup
 
 # deletes 'submit.sh' and an extraneous line
-subprocess.call(['sh', './delete_the_first_two_lines.sh'])
+# subprocess.call(['sh', './delete_the_first_two_lines.sh'])
+# the above code is broken and will stay broken until I fix it
 
 with open('query_links.txt') as f:
 	cards = f.read().split('\n')
