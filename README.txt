@@ -7,4 +7,4 @@ Then you should be able to go through that by clicking enter and such.
 
 If you only need one thing all the time feel free to get rid of the inputs at the front and just use your own personal query.
 
-Credit to 9003's gotIssues (mostly sheetmaker.py) for providing the foundational code (taking links and putting them into an HTML table) and Svenskskit for the idea.
+Credit to 9003's gotIssues (mostly sheetmaker.py written by dithpri) for providing the foundational code (taking links and putting them into an HTML table) and Svenskskit for the idea.
