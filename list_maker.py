@@ -2,18 +2,11 @@
 
 import re
 import requests
+import subprocess
 from bs4 import BeautifulSoup
 
-# the following code is now tests requests.py
-
-# query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3Athe_east_pacific%0D%0A-deck%3As2_tep_collector&season=2&format=full&submit=submit'
-# reqs = requests.get(query)
-# soup = BeautifulSoup(reqs.text, 'html.parser')
-
-# with open('query_links.txt', 'w') as f:
-# 	for link in soup.find_all('a'):
-# 		f.write(link.get('href'))
-
+# deletes 'submit.sh' and an extraneous line
+subprocess.call(['sh', './delete_the_first_two_lines.sh'])
 
 with open('query_links.txt') as f:
 	cards = f.read().split('\n')
