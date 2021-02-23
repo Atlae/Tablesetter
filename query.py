@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-version = 2.0
-print("Version No. %d" % version)
+version = 2.2
+print("Version No. %.1f" % version)
 print("Only bids and cards you don't have at the moment. May add more stuff later.")
 
 region = input("What region are you searching? ")
@@ -36,7 +36,7 @@ print('Running...accessing r3n\'s server')
 # query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3Athe_east_pacific%0D%0A-deck%3As1_tep_collector&season=1&format=full&submit=submit' # for S1
 # query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3Athe_east_pacific%0D%0A-deck%3As2_tep_collector&season=2&format=full&submit=submit' # for S2
 if bidsTrue:
-	query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3A' + region + '%0D%0A%-deck%3A' + nation + '%0D%0A-bid%3A' + nation + '&season=' + season + '&format=full&submit=submit'
+	query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3A' + region + '%0D%0A-deck%3A' + nation + '%0D%0A-bid%3A' + nation + '&season=' + season + '&format=full&submit=submit'
 else:
 	query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3A' + region + '%0D%0A-deck%3A' + nation + '&season=' + season + '&format=full&submit=submit'
 
