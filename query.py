@@ -46,4 +46,4 @@ print("Done!")
 
 with open('query_links.txt', 'w') as f:
 	for link in soup.find_all('a'):
-		f.write('\n' + link.get('href'))
+		f.write('\n' + link.get('href') + '/pull_event_card')
