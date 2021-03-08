@@ -1,7 +1,7 @@
 # Tablesetter
 ---
 
-This tablesetter program queries r3n's [card queries tool](http://azure.nsr3n.info/card_queries/submit.sh) and generates an HTML table for quick traversal. As of Version 2.3, it provides functionality for cards a nation does not have or need to bid on.
+This tablesetter program queries r3n's [card queries tool](http://azure.nsr3n.info/card_queries/submit.sh) and generates an HTML table for quick traversal. As of Version 3.0, it provides functionality for cards a nation does not have or need to bid on.
 
 To run, download and run **query.py** to overwrite **query_links.txt**. You should be prompted for your nation and your region, as well as if you need to find cards you haven't bid on (in case you already started bidding and need to bid on the rest). If you're not necessarily a regional collector, you can enter in a custom query, which gives you more flexibility and gives you a sense of pride, I suppose.
 

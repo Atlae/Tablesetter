@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-version = 2.4
+version = 3.0
 print("Version No. %.1f" % version)
 
 # if you want more flexibility, you can use the custom query
