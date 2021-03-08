@@ -1,13 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-version = 2.3
+version = 2.4
 print("Version No. %.1f" % version)
-print("Only bids and cards you don't have at the moment. May add more stuff later.")
 
-region = input("What region are you searching? ")
-nation = input("What nation are you collecting from? ")
-bids = input("Are you looking for the cards to bid on? (yes/no) ")
+# if you want more flexibility, you can use the custom query
+bidsTrue = False
+nation = input("What nation are you collecting from? ").lower().replace(" ", "_")
 season = 3
 while season not in [1, 2]:
     season = input("What season are you looking for? (1 or 2) ")
@@ -17,28 +16,28 @@ while season not in [1, 2]:
         print("That's not a number!")
     except season == 3:
         print("S3 will never come.")
+custom = input("Do you want to make your own custom query? (yes/no) ").lower().startswith('y')
+if not custom:
+	region = input("What region are you searching? ").lower().replace(" ", "_")
+	bids = input("Are you looking for the cards to bid on? (yes/no) ")
+	if bids.lower().startswith('y'):
+		bidsTrue = True
 
-# sanitization, I think?
-region = region.lower().replace(" ", "_")
-nation = nation.lower().replace(" ", "_")
-bidsTrue = bids.lower().startswith('y')
-
-# with open('card_list.txt') as f:
-# 	puppets = f.read().split('\n')
-
-# puppets = list(filter(None, puppets))
-
-print('Running...accessing r3n\'s server')
-if bidsTrue:
+if custom:
+	posted_query = input("Please enter your query using the Advanced Cards Queries syntax: ")
+	processed_query = posted_query.replace(":", "%3A").replace("&", "%26").replace("!", "%21").replace("|", "%7C").replace(" ", "+")
+	query = f'http://azure.nsr3n.info/card_queries/get_daemon_advanced.sh?format=full&query={processed_query}&season={season}&format=full&submit=submit'
+elif bidsTrue:
 	query = f'http://azure.nsr3n.info/card_queries/get_daemon_advanced.sh?format=full&query=region%3A{region}%26%21deck%3A{nation}%26%21bid%3A{nation}&season={season}&format=full&submit=submit'
 else:
 	query = f'http://azure.nsr3n.info/card_queries/get_daemon_advanced.sh?format=full&query=region%3A{region}%26%21deck%3A{nation}&season={season}&format=full&submit=submit'
 
+print('Running...accessing r3n\'s server')
 reqs = requests.get(query)
 soup = BeautifulSoup(reqs.text, 'html.parser')
-print("Done!")
-print("writing the output of said query into file")
+print("Finished accessing r3n\'s server")
 
+print("Writing the output of said query into file")
 with open('query_links.txt', 'w') as f:
 	cards = []
 	a = soup.find_all('a')
@@ -47,7 +46,7 @@ with open('query_links.txt', 'w') as f:
 		cards.append(a[i].get('href'))
 
 links = open('tep.html', 'w')
-print("opened HTML")
+print("Opened HTML")
 links.write("""
 <html>
 <head>
@@ -115,4 +114,4 @@ document.querySelectorAll("td").forEach(function(el) {
 </body>
 </html>
 """)
-print("Wrote end")
+print("Closed HTML")
