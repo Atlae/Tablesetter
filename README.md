@@ -14,4 +14,4 @@ What's the default bid, you say? Well, currently it's 1.00 bank. What if you can
 document.querySelector("input#new_price_value[name=\"new_price\"]").value='2.00';
 ```
 
-Credit to 9003's [gotIssues](https://github.com/jmikk/gotIssues) (mostly sheetmaker.py written by dithpri) for providing the foundational code (taking links and putting them into an HTML table), Svenskskit for the idea, and Riemstagrad for the coding help.
+Credit to [9003's](https://github.com/jmikk) [gotIssues](https://github.com/jmikk/gotIssues) (mostly sheetmaker.py written by [dithpri](https://github.com/dithpri)) for providing the foundational code (taking links and putting them into an HTML table), [Svenskskit](https://github.com/authright) for the idea, and [Riemstagrad](https://www.nationstates.net/nation=riemstagrad) for the coding help.
