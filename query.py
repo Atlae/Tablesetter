@@ -1,14 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
 
-version = 2.2
+version = 2.3
 print("Version No. %.1f" % version)
 print("Only bids and cards you don't have at the moment. May add more stuff later.")
 
 region = input("What region are you searching? ")
 nation = input("What nation are you collecting from? ")
 bids = input("Are you looking for the cards to bid on? (yes/no) ")
-season = input("What season are you looking for? Integers only please. ")
+season = 3
+while season not in [1, 2]:
+    season = input("What season are you looking for? (1 or 2) ")
+    try:
+        season = int(season)
+    except ValueError:
+        print("That's not a number!")
+    except season == 3:
+        print("S3 will never come.")
 
 # sanitization, I think?
 region = region.lower().replace(" ", "_")
@@ -20,30 +28,91 @@ bidsTrue = bids.lower().startswith('y')
 
 # puppets = list(filter(None, puppets))
 
-# I wish Python had switch statements :(
-if int(season) == 1 or int(season) == 2:
-    print("...")
-elif int(season) > 3:
-	print("Season %d does not exist!" % season)
-elif int(season) == 3:
-	print("S3 will never come.")	
-elif int(season) <= 0:
-	print("No.")
-else:
-    print("You broke the code! >:(")
-
 print('Running...accessing r3n\'s server')
-# query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3Athe_east_pacific%0D%0A-deck%3As1_tep_collector&season=1&format=full&submit=submit' # for S1
-# query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3Athe_east_pacific%0D%0A-deck%3As2_tep_collector&season=2&format=full&submit=submit' # for S2
 if bidsTrue:
-	query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3A' + region + '%0D%0A-deck%3A' + nation + '%0D%0A-bid%3A' + nation + '&season=' + season + '&format=full&submit=submit'
+	query = f'http://azure.nsr3n.info/card_queries/get_daemon_advanced.sh?format=full&query=region%3A{region}%26%21deck%3A{nation}%26%21bid%3A{nation}&season={season}&format=full&submit=submit'
 else:
-	query = 'http://azure.nsr3n.info/card_queries/get_daemon.sh?query=%2Bregion%3A' + region + '%0D%0A-deck%3A' + nation + '&season=' + season + '&format=full&submit=submit'
+	query = f'http://azure.nsr3n.info/card_queries/get_daemon_advanced.sh?format=full&query=region%3A{region}%26%21deck%3A{nation}&season={season}&format=full&submit=submit'
 
 reqs = requests.get(query)
 soup = BeautifulSoup(reqs.text, 'html.parser')
 print("Done!")
+print("writing the output of said query into file")
 
 with open('query_links.txt', 'w') as f:
-	for link in soup.find_all('a'):
-		f.write('\n' + link.get('href') + '/pull_event_card')
+	cards = []
+	a = soup.find_all('a')
+	for i in range(1, len(a)):
+		f.write('\n' + a[i].get('href') + '/pull_event_card')
+		cards.append(a[i].get('href'))
+
+links = open('tep.html', 'w')
+print("opened HTML")
+links.write("""
+<html>
+<head>
+<style>
+td.createcol p {
+	padding-left: 10em;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	color: grey;
+}
+
+table {
+	border-collapse: collapse;
+	display: table-cell;
+	max-width: 100%;
+	border: 1px solid darkorange;
+}
+
+tr, td {
+	border-bottom: 1px solid darkorange;
+}
+
+td p {
+	padding: 0.5em;
+}
+
+tr:hover {
+	background-color: lightgrey;
+}
+
+</style>
+</head>
+<body>
+<table>
+""")
+
+#containerise_rules.write("@^.*\.nationstates\.net/(.*/)?nation=9003(/.*)?$ , 9003\n")
+for c in cards:
+	
+	links.write('   <tr><td><p><a target="_blank" href="{}">Link to Card</a></p></td></tr>\n'.format(c + f"/nation={nation}/container={nation}"))
+	print("Added URL")
+
+links.write("""   <tr><td><p><a target="_blank" href="https://this-page-intentionally-left-blank.org/">Done!</a></p></td></tr>
+</table>
+<script>
+document.querySelectorAll("td").forEach(function(el) {
+	el.addEventListener("click", function() {
+		let myidx = 0;
+		const row = el.parentNode;
+		let child = el;
+		while((child = child.previousElementSibling) != null) {
+			myidx++;
+		}
+		row.nextElementSibling.childNodes[myidx].querySelector("p > a").focus();
+		row.parentNode.removeChild(row);
+	});
+});
+</script>
+</body>
+</html>
+""")
+print("Wrote end")
