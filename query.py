@@ -45,7 +45,7 @@ with open('query_links.txt', 'w') as f:
 		f.write('\n' + a[i].get('href') + '/pull_event_card')
 		cards.append(a[i].get('href'))
 
-links = open('tep.html', 'w')
+links = open('table.html', 'w')
 print("Opened HTML")
 links.write("""
 <html>
