@@ -15,9 +15,6 @@ while season not in [0, 1, 2, 3]:
         season = int(season)
     except ValueError:
         print("That's not a number!")
-if season == 3:
-	print("S3 will never come.")
-	sys.exit()
 custom = input("Do you want to make your own custom query? (yes/no) ").lower().startswith('y')
 if not custom:
 	region = input("What region are you searching? ").lower().replace(" ", "_")
@@ -49,7 +46,7 @@ if season != 0:
 			f.write('\n' + a[i].get('href') + '/pull_event_card')
 			cards.append(a[i].get('href'))
 else:
-	while season < 2:
+	while season < 3:
 		season += 1
 		if custom:
 			posted_query = input(f"Please enter your query using the Advanced Cards Queries syntax for Season {season}: ")
